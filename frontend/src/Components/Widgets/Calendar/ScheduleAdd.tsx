@@ -10,42 +10,33 @@ export default function ScheduleAdd(props: any) {
   const sampleStartTime =
     new Date().getFullYear() +
     '-' +
+    ((new Date().getMonth() + 1) / 10 < 1 ? '0' : '') +
     (new Date().getMonth() + 1) +
     '-' +
+    (new Date().getDate() / 10 < 1 ? '0' : '') +
     new Date().getDate() +
     'T' +
-    +new Date().getHours() +
+    (new Date().getHours() / 10 < 1 ? '0' : '') +
+    new Date().getHours() +
     ':00';
+  const tmpTime = new Date(new Date().setHours(new Date().getHours() + 2));
   const sampleEndTime =
-    new Date().getFullYear() +
+    tmpTime.getFullYear() +
     '-' +
-    (new Date().getMonth() + 1) +
+    (tmpTime.getMonth() + 1 < 1 ? 0 : '') +
+    (tmpTime.getMonth() + 1) +
     '-' +
-    new Date().getDate() +
+    (tmpTime.getDate() < 1 ? 0 : '') +
+    tmpTime.getDate() +
     'T' +
-    (new Date().getHours() + 2) +
+    (tmpTime.getHours() < 1 ? 0 : '') +
+    tmpTime.getHours() +
     ':00';
 
   const [inputs, setInputs] = useState({
     title: '',
-    startDate:
-      new Date().getFullYear() +
-      '-' +
-      (new Date().getMonth() + 1) +
-      '-' +
-      new Date().getDate() +
-      'T' +
-      +new Date().getHours() +
-      ':00',
-    endDate:
-      new Date().getFullYear() +
-      '-' +
-      (new Date().getMonth() + 1) +
-      '-' +
-      new Date().getDate() +
-      'T' +
-      (+new Date().getHours() + 2) +
-      ':00',
+    startDate: sampleStartTime,
+    endDate: sampleEndTime,
     content: '',
     color: -1,
   });
@@ -120,16 +111,7 @@ export default function ScheduleAdd(props: any) {
               type="datetime-local"
               name="startDate"
               onChange={handleChange}
-              defaultValue={
-                new Date().getFullYear() +
-                '-' +
-                (new Date().getMonth() + 1) +
-                '-' +
-                new Date().getDate() +
-                'T' +
-                +new Date().getHours() +
-                ':00'
-              }
+              defaultValue={sampleStartTime}
             />
           </Form.Group>
           <Form.Group>
@@ -138,16 +120,7 @@ export default function ScheduleAdd(props: any) {
               type="datetime-local"
               name="endDate"
               onChange={handleChange}
-              defaultValue={
-                new Date().getFullYear() +
-                '-' +
-                (new Date().getMonth() + 1) +
-                '-' +
-                new Date().getDate() +
-                'T' +
-                +(new Date().getHours() + 2) +
-                ':00'
-              }
+              defaultValue={sampleEndTime}
             />
           </Form.Group>
           <Form.Group>
